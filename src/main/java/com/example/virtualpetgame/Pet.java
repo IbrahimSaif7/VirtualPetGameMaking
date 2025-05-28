@@ -1,4 +1,6 @@
 package com.example.virtualpetgame;
+import javafx.scene.layout.StackPane;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -90,6 +92,28 @@ abstract class Pet {
         }
     }
 
+    public void feed(Food food, User user, StackPane root) {
+        if (Arrays.asList(favoriteFoods).contains(food.name)) {
+            hunger -= food.hungerReduction*1.5;
+            hunger = clamp(hunger);
+            mood += 5;
+            mood = clamp(mood);
+            energy += food.energyIncrease;
+            energy = clamp(energy);
+            user.earnMoney(7);
+            System.out.println(name + " loves " + food.name + "! Hunger -" + food.hungerReduction*1.5 + ", Mood +5, Energy "+ food.energyIncrease + ", Earned $15");
+            Toast.show(root, name + " loves " + food.name + "! Hunger -" + food.hungerReduction*1.5 + ", Mood +5, Energy "+ food.energyIncrease + ", Earned $7");
+        } else {
+            hunger -= food.hungerReduction;
+            hunger = clamp(hunger);
+            energy += food.energyIncrease;
+            energy = clamp(energy);
+            user.earnMoney(3);
+            System.out.println(name + " eats " + food.name + ". It's okay. Hunger -" + food.hungerReduction + "Energy "+ food.energyIncrease +", Earned $5");
+            Toast.show(root, name + " eats " + food.name + ". It's okay. Hunger -" + food.hungerReduction + "Energy "+ food.energyIncrease +", Earned $3");
+        }
+    }
+
     public void play(Toy toy, User user) {
         if (toy.uses > 0) {
             if (Arrays.asList(favouriteToys).contains(toy.name)) {
@@ -118,6 +142,38 @@ abstract class Pet {
         }
     }
 
+    public void play(Toy toy, User user, StackPane root) {
+        if (toy.uses > 0) {
+            if (Arrays.asList(favouriteToys).contains(toy.name)) {
+                toy.use();
+                mood += toy.moodIncrease * 1.5;
+                mood = clamp(mood);
+                energy -= toy.energyDecrease;
+                energy = clamp(energy);
+                user.earnMoney(8);
+                System.out.println(name + " loved to play with" + toy.name + "! Mood +" + toy.moodIncrease * 1.5 + ", Energy -" + toy.energyDecrease + " Earned $15");
+                Toast.show(root, name + " loved to play with" + toy.name + "! Mood +" + toy.moodIncrease * 1.5 + ", Energy -" + toy.energyDecrease + " Earned $8");
+            } else {
+                toy.use();
+                mood += toy.moodIncrease;
+                mood = clamp(mood);
+                energy -= toy.energyDecrease;
+                energy = clamp(energy);
+                user.earnMoney(4);
+                System.out.println(name + " had little fun playing with " + toy.name + " Mood +" + toy.moodIncrease + ", Energy -" + toy.energyDecrease + " Earned $15");
+                Toast.show(root,name + " had little fun playing with " + toy.name + " Mood +" + toy.moodIncrease + ", Energy -" + toy.energyDecrease + " Earned $4" );
+            }
+            if (toy.uses == 0) {
+                System.out.println("You've word this toy out!");
+                Toast.show(root, "You've word this toy out!");
+                user.toyInventory.remove(toy);
+            }
+        } else {
+            System.out.println("Toy is Worn-out :( Choose another toy");
+            Toast.show(root,"Toy is Worn-out" );
+        }
+    }
+
     public void sleep(User user) {
         energy += 20;
         hunger += 10;
@@ -125,6 +181,16 @@ abstract class Pet {
         hunger= clamp(hunger);
         user.earnMoney(10);
         System.out.println(name + " had a good nap! Energy +20, Hunger +10, Earned $10");
+    }
+
+    public void sleep(User user, StackPane root) {
+        energy += 20;
+        hunger += 10;
+        energy= clamp(energy);
+        hunger= clamp(hunger);
+        user.earnMoney(4);
+        System.out.println(name + " had a good nap! Energy +20, Hunger +10, Earned $10");
+        Toast.show(root, name + " had a good nap! Energy +20, Hunger +10, Earned $4");
     }
 
     public void displayStatus() {

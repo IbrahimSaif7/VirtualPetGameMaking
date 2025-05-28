@@ -97,7 +97,7 @@ public class GameShop {
         overlay.setStyle("-fx-background-color: rgba(0,0,0,0.75); -fx-padding: 30; -fx-background-radius: 15;");
         overlay.setAlignment(Pos.CENTER);
 
-        Label title = new Label("Name Your "+ pet.getClass().getSimpleName());
+        Label title = new Label("Name Your " + pet.getClass().getSimpleName());
         title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: gold;");
 
         TextField nameInput = new TextField();
@@ -109,34 +109,27 @@ public class GameShop {
         confirm.setStyle("-fx-background-color: gold; -fx-font-weight: bold;");
 
         confirm.setOnAction(e -> {
+            String name = nameInput.getText().trim();
 
-            if(user.pets.size()==3){
-                Toast.show(root,"You already have 3 pets");
-
+            if (name.isEmpty()) {
+                nameInput.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-color: red; -fx-border-width: 2;");
+                Toast.show(root, "Please enter a name!");
+                return;
             }
-            else {
-                String name = nameInput.getText().trim();
-                if (!name.isEmpty()) {
-                    Pet newPet = pet.clonePet();
-                    newPet.setName(name);
-                    boolean bought = user.buyPet(newPet);
-                    if (bought) {
-                        root.getChildren().remove(overlay); // optional fade out
 
-                        Toast.show(root, "You chose: " + pet.name + "!");
-                        mainScreen.refreshPetDisplay(root);
-                        root.getChildren().remove(overlay);
-                        user.updateMoneyLabel();
-                    }
-                } else {
-                    Toast.show(root,"Not enough money !");
-                    nameInput.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
-                }
+            Pet newPet = pet.clonePet();
+            newPet.setName(name);
+            boolean bought = user.buyPet(newPet, root);
+
+            if (bought) {
+                user.updateMoneyLabel();
+                mainScreen.refreshPetDisplay(root);
             }
+            root.getChildren().remove(overlay);
+
         });
 
         overlay.getChildren().addAll(title, nameInput, confirm);
-        StackPane.setAlignment(overlay, Pos.CENTER);
         root.getChildren().add(overlay);
     }
 
@@ -182,7 +175,7 @@ public class GameShop {
         StackPane.setAlignment(chicken, Pos.CENTER);
         StackPane.setMargin(chicken, new Insets(0,210,140,0));
         chicken.setOnAction(e -> {
-            buyingFood(food[0],root,user);
+            buyingFood(food[1],root,user);
         });
 
         Button meat = new Button();
@@ -190,7 +183,7 @@ public class GameShop {
         StackPane.setAlignment(meat,Pos.CENTER);
         StackPane.setMargin(meat, new Insets(0,0,150,25));
         meat.setOnAction(e -> {
-            buyingFood(food[1],root,user);
+            buyingFood(food[0],root,user);
         });
 
         Button fish = new Button();
@@ -355,23 +348,13 @@ public class GameShop {
 
     private void buyingFood(Food food, StackPane root, User user){
 
-       if(user.buyFood(food)){
-           Toast.show(root,"Bought "+ food.name);
-            user.updateMoneyLabel();
-       }else {
-           Toast.show(root,"Not enough money");
-       }
+       user.buyFood(food,root);
 
     }
 
     private void buyingToys(Toy toy, StackPane root, User user){
 
-        if(user.buyToy(toy)){
-            Toast.show(root,"Bought "+ toy.name);
-            user.updateMoneyLabel();
-        }else {
-            Toast.show(root,"Not enough money");
-        }
+        user.buyToy(toy,root);
 
 
     }

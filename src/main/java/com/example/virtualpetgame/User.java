@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -65,6 +66,27 @@ public class User {
         }
     }
 
+    public boolean buyPet(Pet pet, StackPane root) {
+        if (pets.size() >= 3) {
+            System.out.println("You can only have 3 pets!");
+            Toast.show(root,"You can only have 3 pets!");
+            return false;
+        }
+
+        if (money >= pet.price) {
+            money -= pet.price;
+            pets.add(pet);
+            System.out.println(username + " has bought " + pet.name + "!");
+            Toast.show(root, username + " has bought a " + pet.name + "!");
+            return true;
+        } else {
+            System.out.println(username + " doesn't have enough money to buy this pet.");
+            Toast.show(root, username + " doesn't have enough money to buy this pet.");
+
+            return false;
+        }
+    }
+
     public boolean buyFood(Food food) {
         if (money >= food.price) {
             money -= food.price;
@@ -77,6 +99,24 @@ public class User {
             return false;
         }
     }
+
+    public boolean buyFood(Food food, StackPane root){
+
+        if (money >= food.price) {
+            money -= food.price;
+            foodInventory.add(food);
+            System.out.println("Bought " + food.name + " for $" + food.price);
+            Toast.show(root,"Bought " + food.name + " for $" + food.price);
+            return true;
+
+        } else {
+            System.out.println("Not enough money to buy " + food.name);
+            Toast.show(root, "Not enough money to buy " + food.name);
+            return false;
+        }
+
+    }
+
     public boolean buyToy(Toy toy) {
         if (money >= toy.price) {
             money -= toy.price;
@@ -87,6 +127,22 @@ public class User {
             System.out.println("Not enough money to buy " + toy.name);
             return false;
         }
+    }
+
+    public boolean buyToy(Toy toy, StackPane root){
+
+        if (money >= toy.price) {
+            money -= toy.price;
+            toyInventory.add(toy);
+            System.out.println("Bought " + toy.name + " for $" + toy.price);
+            Toast.show(root,"Bought " + toy.name + " for $" + toy.price );
+            return true;
+        } else {
+            System.out.println("Not enough money to buy " + toy.name);
+            Toast.show(root, ("Not enough money to buy " + toy.name));
+            return false;
+        }
+
     }
 
     public List<Food> getFoodInventory() {
@@ -265,6 +321,22 @@ public class User {
         if (pets.remove(pet)) {
             earnMoney(pet.sellValue); // assuming Pet has a sellValue field
             System.out.println("You sold " + pet.name + " for $" + pet.sellValue + ".");
+        } else {
+            System.out.println("Pet not found.");
+        }
+    }
+
+    public void sellPet(Pet pet, StackPane root) {
+        if (pets.isEmpty()) {
+            System.out.println("No pets to sell.");
+
+            return;
+        }
+
+        if (pets.remove(pet)) {
+            earnMoney(pet.sellValue); // assuming Pet has a sellValue field
+            System.out.println("You sold " + pet.name + " for $" + pet.sellValue + ".");
+            Toast.show(root, "You sold " + pet.name + " for $" + pet.sellValue + ".");
         } else {
             System.out.println("Pet not found.");
         }

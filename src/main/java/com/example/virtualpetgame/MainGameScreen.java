@@ -30,6 +30,8 @@ public class MainGameScreen {
 
 
 
+
+
     public MainGameScreen(Stage stage, GameController controller) {
         this.stage = stage;
         this.controller = controller;
@@ -77,7 +79,6 @@ public class MainGameScreen {
         StackPane.setAlignment(storeIcon, Pos.TOP_RIGHT);
         StackPane.setMargin(storeIcon, new Insets(10));
 
-        //minigame
         ImageView miniGameIcon = new ImageView(new Image(getClass().getResourceAsStream("/images/MinigameIcon.png")));
         miniGameIcon.setFitWidth(50);
         miniGameIcon.setFitHeight(50);
@@ -94,59 +95,24 @@ public class MainGameScreen {
         });
         miniGameIcon.setOnMouseClicked(e -> {
             System.out.println("Mini game clicked!");
-            // TODO: Launch mini-game
+           showMiniGameOverlay(root);
+
         });
         miniGameIcon.setStyle("-fx-cursor: hand;");
         StackPane.setAlignment(miniGameIcon, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(miniGameIcon, new Insets(10));
 
-        // animals on rugs
-
-//        HBox rugLayout = new HBox(80);
-//        rugLayout.setAlignment(Pos.CENTER);
-//
-//
-//        leftSlot.setAlignment(Pos.CENTER);
-//        centerSlot.setAlignment(Pos.CENTER);
-//        rightSlot.setAlignment(Pos.CENTER);
-//
-//        List<Pet> pets = controller.getUser().pets;
-//        for (int i = 0; i < Math.min(pets.size(), 3); i++) {
-//            Pet pet = pets.get(i);
-//            ImageView petImg = new ImageView(new Image(
-//                    getClass().getResourceAsStream("/images/" + pet.getClass().getSimpleName().toLowerCase() + ".png")));
-//            petImg.setFitWidth(180);
-//            petImg.setPreserveRatio(true);
-//
-//          petImg.setStyle("-fx-cursor: hand;");
-//           petImg.setOnMouseClicked(e -> showPetPopup(root, pet,petImg));
-//
-//            switch (i) {
-//                case 0 -> centerSlot.getChildren().add(petImg);
-//                case 1 -> rightSlot.getChildren().add(petImg);
-//                case 2 -> leftSlot.getChildren().add(petImg);
-//            }
-//
-//        }
-//        rugLayout.getChildren().addAll(leftSlot,centerSlot,rightSlot);
-//
-//
-//
-//        VBox centerWrapper = new VBox(rugLayout);
-//        centerWrapper.setAlignment(Pos.CENTER);
-//        centerWrapper.setPadding(new Insets(340,0,0,80));
 
 
 
-// 2. Set their absolute positions (adjust these numbers to match your carpet positions)
         leftCarpet.setLayoutX(165);   // X position of left carpet
-        leftCarpet.setLayoutY(307);   // Y position of left carpet
+        leftCarpet.setLayoutY(295);   // Y position of left carpet
 
         centerCarpet.setLayoutX(350); // X position of center carpet
-        centerCarpet.setLayoutY(340); // Y position of center carpet
+        centerCarpet.setLayoutY(330); // Y position of center carpet
 
         rightCarpet.setLayoutX(540);  // X position of right carpet
-        rightCarpet.setLayoutY(307);
+        rightCarpet.setLayoutY(295);
 
         List<Pet> pets = controller.getUser().pets;
         for (int i = 0; i < Math.min(pets.size(), 3); i++) {
@@ -176,10 +142,8 @@ public class MainGameScreen {
 
 
     private void showPetPopup(StackPane root, Pet pet, ImageView petView) {
-        // 🪄 Create popup panel
         VBox panel = new VBox(10);
         panel.setAlignment(Pos.CENTER);
-     //   panel.setStyle("-fx-background-color: rgba(0,0,0,0.8); -fx-background-radius: 12; -fx-padding: 20;");
         panel.setStyle("-fx-background-color: linear-gradient(to bottom, #3a3a3a, #1a1a1a); " +
                 "-fx-background-radius: 15; " +
                 "-fx-padding: 20; " +
@@ -191,7 +155,6 @@ public class MainGameScreen {
         panel.setMaxHeight(300);
 
         Label name = new Label(pet.getName());
-       // name.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;");
         name.setStyle("-fx-font-size: 18px; " +
                 "-fx-font-weight: bold; " +
                 "-fx-text-fill: orange; " +
@@ -221,9 +184,7 @@ public class MainGameScreen {
         Label mLabel = new Label("Mood");
         Label eLabel = new Label("Energy");
 
-//        for (Label l : new Label[]{hLabel, mLabel, eLabel}) {
-//            l.setStyle("-fx-text-fill: white;");
-//        }
+
         String statLabelStyle = "-fx-text-fill: #FFD700; " + // Gold text
                 "-fx-font-size: 14px; " +
                 "-fx-font-weight: bold;";
@@ -234,7 +195,7 @@ public class MainGameScreen {
 
         Button feed = new Button("Feed");
         Button play = new Button("Play");
-        Button evolve = new Button("Evolve");
+        Button nap = new Button("Nap");
         Button sell = new Button("Sell");
 
         String buttonStyle = "-fx-background-color: linear-gradient(to bottom, #4a4a4a, #2a2a2a); " +
@@ -249,13 +210,13 @@ public class MainGameScreen {
         String hoverStyle = "-fx-background-color: linear-gradient(to bottom, #5a5a5a, #3a3a3a); " +
                 "-fx-effect: dropshadow(gaussian, gold, 5, 0.5, 0, 0);";
 
-        for (Button btn : new Button[]{feed, play, evolve,sell}) {
+        for (Button btn : new Button[]{feed, play,sell,nap}) {
             btn.setStyle(buttonStyle);
             btn.setOnMouseEntered(e -> btn.setStyle(buttonStyle + hoverStyle));
             btn.setOnMouseExited(e -> btn.setStyle(buttonStyle));
         }
 
-        HBox actions = new HBox(10, feed, play, evolve,sell);
+        HBox actions = new HBox(10, feed, play,nap,sell);
         actions.setAlignment(Pos.CENTER);
 
         Button close = new Button("X");
@@ -281,34 +242,39 @@ public class MainGameScreen {
 
         panel.getChildren().addAll(close,name, stats, actions);
 
-        // 📍Position it above the pet
         Bounds petBounds = petView.localToScene(petView.getBoundsInLocal());
         double popupX = petBounds.getMinX() + petBounds.getWidth() / 2;
         double popupY = petBounds.getMinY() - 20;
 
-        panel.setTranslateX(popupX - 400); // adjust -400 if your scene width changes
+        panel.setTranslateX(popupX - 400);
         panel.setTranslateY(popupY - 400);
 
         root.getChildren().add(panel);
 
-        // ✅ Hook up actions
         feed.setOnAction(e -> {
-            showFoodInventory(pet, panel);  // pass the animal popup panel
+            showFoodInventory(pet, panel);
         });
         play.setOnAction(e -> {
-            showToyInventory(pet, panel);  // pass the animal popup to close later
+            showToyInventory(pet, panel);
         });
 
-        evolve.setOnAction(e -> {
-            pet.tryEvolve(controller.getUser());
-            controller.getUser().updateMoneyLabel();
+        nap.setOnAction(e -> {
+            if(pet.energy<95) {
+                pet.sleep(controller.getUser(), root);
+                root.getChildren().remove(panel);
+
+
+            }else{
+                Toast.show(root,pet.name+ " is not tired");
+            }
         });
+
+
         sell.setOnAction(e -> {
 
-            controller.getUser().sellPet(pet); // 💥 call sell logic
+            controller.getUser().sellPet(pet, root); // 💥 call sell logic
 
             root.getChildren().remove(panel);// 🧼 remove popup
-            Toast.show(root,"Sold "+ pet.name + "for "+ pet.sellValue+ " $");
             controller.getUser().updateMoneyLabel();
             refreshPetDisplay(root);
 
@@ -363,7 +329,6 @@ public class MainGameScreen {
             gameShop.showPetShop();
 
 
-           // showCategoryOverlay(root, "pet");
         });
 
         foodBtn.setOnAction(e -> {
@@ -385,29 +350,74 @@ public class MainGameScreen {
 
     }
 
-//    public void refreshPetDisplay(StackPane root) {
-//        leftSlot.getChildren().clear();
-//        centerSlot.getChildren().clear();
-//        rightSlot.getChildren().clear();
-//
-//        List<Pet> pets = controller.getUser().pets;
-//        for (int i = 0; i < Math.min(pets.size(), 3); i++) {
-//            Pet pet = pets.get(i);
-//
-//            ImageView petImg = new ImageView(new Image(
-//                    getClass().getResourceAsStream("/images/" + pet.getClass().getSimpleName().toLowerCase() + ".png")));
-//            petImg.setFitWidth(180);
-//            petImg.setPreserveRatio(true);
-//            petImg.setStyle("-fx-cursor: hand;");
-//
-//            petImg.setOnMouseClicked(e -> showPetPopup(root, pet, petImg));
-//
-//            switch (i) {
-//                case 0 -> centerSlot.getChildren().add(petImg);
-//                case 1 -> rightSlot.getChildren().add(petImg);
-//                case 2 -> leftSlot.getChildren().add(petImg);
-//            }
-//        }
+    private void showMiniGameOverlay(StackPane root){
+
+        MiniGameOverlay miniGameOverlay=new MiniGameOverlay(root,controller,this);
+        Region dim = new Region();
+        dim.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        dim.setPrefSize(800, 600);
+
+        ImageView minigames = new ImageView(new Image(getClass().getResourceAsStream("/images/MiniGameScreen.jpg")));
+        minigames.setFitWidth(700);
+        minigames.setFitHeight(450);
+        minigames.setPreserveRatio(false);
+
+        Button memory = new Button();
+        Button trivia = new Button();
+        Button math = new Button();
+
+        for (Button btn : new Button[]{memory, trivia, math}) {
+            btn.setStyle("-fx-background-color: transparent;"+ "-fx-cursor: hand;");
+            btn.setPrefSize(135, 135);
+        }
+
+        StackPane.setAlignment(memory, Pos.CENTER_LEFT);
+        StackPane.setMargin(memory, new Insets(30, 0, 0, 115));
+
+        StackPane.setAlignment(trivia, Pos.CENTER);
+        StackPane.setMargin(trivia, new Insets(30, 0, 0, 0));
+
+        StackPane.setAlignment(math, Pos.CENTER_RIGHT);
+        StackPane.setMargin(math, new Insets(40, 115, 0, 0));
+
+        Button close = new Button("X");
+        close.setStyle("-fx-font-weight: bold;");
+        StackPane.setAlignment(close, Pos.TOP_RIGHT);
+        StackPane.setMargin(close, new Insets(70,60,0,0));
+
+
+        StackPane overlay = new StackPane(dim, minigames, memory, trivia, math, close);
+
+        close.setOnAction(e -> root.getChildren().remove(overlay));
+
+        memory.setOnAction(e -> {
+            root.getChildren().remove(overlay);
+            miniGameOverlay.MemoryGame();
+
+        });
+
+        trivia.setOnAction(e -> {
+            root.getChildren().remove(overlay);
+            miniGameOverlay.showTriviaGame();
+        });
+
+        math.setOnAction(e -> {
+            root.getChildren().remove(overlay);
+            miniGameOverlay.showArithmeticGame();
+        });
+
+
+
+
+
+
+        root.getChildren().addAll(overlay);
+
+
+
+    }
+
+
 
     public void refreshPetDisplay(StackPane root) {
         leftCarpet.getChildren().clear();
@@ -468,7 +478,7 @@ public class MainGameScreen {
             Button select = new Button("Feed");
             select.setStyle("-fx-background-color: gold; -fx-text-fill: black; -fx-font-weight: bold;");
             select.setOnAction(e -> {
-                pet.feed(food, controller.getUser());
+                pet.feed(food, controller.getUser(), root);
                 controller.getUser().removeFood(food);
                 controller.getUser().updateMoneyLabel();
                 refreshPetDisplay(root);
@@ -521,7 +531,7 @@ public class MainGameScreen {
 
             select.setOnAction(e -> {
                 if (pet.isAlive()) {
-                    pet.play(toy, controller.getUser());
+                    pet.play(toy, controller.getUser(), root);
                     controller.getUser().updateMoneyLabel();
                     refreshPetDisplay(root);
 

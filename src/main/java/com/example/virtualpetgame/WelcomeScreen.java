@@ -43,7 +43,7 @@ public class WelcomeScreen {
         playButton.setPreserveRatio(true);
         playButton.setFitWidth(180);
         StackPane.setAlignment(playButton, Pos.CENTER);
-        StackPane.setMargin(playButton, new Insets(150,0,0,0));
+        StackPane.setMargin(playButton, new Insets(40,0,0,0));
 
         // Set button action to switch screens
         playButton.setOnMouseClicked(e ->{
