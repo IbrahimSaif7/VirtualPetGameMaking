@@ -4,9 +4,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -253,19 +251,40 @@ public class MainGameScreen {
 
         feed.setOnAction(e -> {
             showFoodInventory(pet, panel);
+
         });
         play.setOnAction(e -> {
             showToyInventory(pet, panel);
         });
 
         nap.setOnAction(e -> {
-            if(pet.energy<95) {
+            if(pet.energy<92) {
                 pet.sleep(controller.getUser(), root);
                 root.getChildren().remove(panel);
 
+                if (pet.isDead()) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Oh no!");
+                    alert.setHeaderText(null);
+                    alert.setContentText(pet.getName() + " has died 💀");
+
+                    DialogPane dialog = alert.getDialogPane();
+                    dialog.setStyle("-fx-background-color: #2a2a2a;");
+                    dialog.lookup(".content.label").setStyle("-fx-text-fill: white;");
+
+                    alert.showAndWait();
+
+                    controller.getUser().pets.remove(pet);               // Remove pet
+                    controller.getUser().updateMoneyLabel();             // Refresh money
+                }
+                refreshPetDisplay(root); // Re-align pets
+
+
 
             }else{
+                pet.mood-=11;
                 Toast.show(root,pet.name+ " is not tired");
+                refreshPetDisplay(root);
             }
         });
 
@@ -478,13 +497,36 @@ public class MainGameScreen {
             Button select = new Button("Feed");
             select.setStyle("-fx-background-color: gold; -fx-text-fill: black; -fx-font-weight: bold;");
             select.setOnAction(e -> {
-                pet.feed(food, controller.getUser(), root);
-                controller.getUser().removeFood(food);
-                controller.getUser().updateMoneyLabel();
-                refreshPetDisplay(root);
+                if(pet.hunger>=10) {
+                    pet.feed(food, controller.getUser(), root);
+                    controller.getUser().removeFood(food);
+                    controller.getUser().updateMoneyLabel();
+                    refreshPetDisplay(root);
 
-                root.getChildren().removeAll(blurLayer, panel);       // Close food list
-                root.getChildren().remove(petPopupPanel);              // Close animal popup
+                    root.getChildren().removeAll(blurLayer, panel);       // Close food list
+                    root.getChildren().remove(petPopupPanel);
+
+                    if (pet.isDead()) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Oh no!");
+                        alert.setHeaderText(null);
+                        alert.setContentText(pet.getName() + " has died 💀");
+
+                        DialogPane dialog = alert.getDialogPane();
+                        dialog.setStyle("-fx-background-color: #2a2a2a;");
+                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;");
+
+                        alert.showAndWait();
+
+                        controller.getUser().pets.remove(pet);               // Remove pet
+                        controller.getUser().updateMoneyLabel();             // Refresh money
+                    }
+                    refreshPetDisplay(root);
+                }else{
+                    Toast.show(root,"Not hungry");
+                    pet.mood-=11;
+                }
+
             });
 
             row.getChildren().addAll(name, hunger, select);
@@ -530,14 +572,33 @@ public class MainGameScreen {
             select.setStyle("-fx-background-color: #444; -fx-text-fill: white; -fx-background-radius: 8;");
 
             select.setOnAction(e -> {
-                if (pet.isAlive()) {
+
                     pet.play(toy, controller.getUser(), root);
                     controller.getUser().updateMoneyLabel();
                     refreshPetDisplay(root);
 
                     root.getChildren().removeAll(blurLayer, panel);   // Close toy list
-                    root.getChildren().remove(petPopupPanel);         // Close pet popup
-                }
+                    root.getChildren().remove(petPopupPanel);
+
+                    if (pet.isDead()) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Oh no!");
+                        alert.setHeaderText(null);
+                        alert.setContentText(pet.getName() + " has died 💀");
+
+                        DialogPane dialog = alert.getDialogPane();
+                        dialog.setStyle("-fx-background-color: #2a2a2a;");
+                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;");
+
+                        alert.showAndWait();
+
+                        controller.getUser().pets.remove(pet);               // Remove pet
+                        controller.getUser().updateMoneyLabel();             // Refresh money
+                    }
+                    refreshPetDisplay(root); // Re-align pets
+
+                    // Close pet popup
+
             });
 
             list.getChildren().add(select);

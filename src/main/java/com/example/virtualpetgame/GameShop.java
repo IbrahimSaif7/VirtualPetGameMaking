@@ -175,7 +175,7 @@ public class GameShop {
         StackPane.setAlignment(chicken, Pos.CENTER);
         StackPane.setMargin(chicken, new Insets(0,210,140,0));
         chicken.setOnAction(e -> {
-            buyingFood(food[1],root,user);
+            buyingFood(food[2],root,user);
         });
 
         Button meat = new Button();
@@ -183,7 +183,7 @@ public class GameShop {
         StackPane.setAlignment(meat,Pos.CENTER);
         StackPane.setMargin(meat, new Insets(0,0,150,25));
         meat.setOnAction(e -> {
-            buyingFood(food[0],root,user);
+            buyingFood(food[4],root,user);
         });
 
         Button fish = new Button();
@@ -191,7 +191,7 @@ public class GameShop {
         StackPane.setAlignment(fish,Pos.CENTER);
         StackPane.setMargin(fish, new Insets(0,0,150,210));
         fish.setOnAction(e -> {
-            buyingFood(food[2],root,user);
+            buyingFood(food[0],root,user);
         });
 
         Button carrot = new Button();
@@ -199,7 +199,7 @@ public class GameShop {
         StackPane.setAlignment(carrot,Pos.CENTER);
         StackPane.setMargin(carrot,new Insets(75,140,0,0));
         carrot.setOnAction(e -> {
-            buyingFood(food[3],root,user);
+            buyingFood(food[1],root,user);
         });
 
         Button lettuce = new Button();
@@ -207,7 +207,7 @@ public class GameShop {
         StackPane.setAlignment(lettuce,Pos.CENTER);
         StackPane.setMargin(lettuce, new Insets(55,0,0,160));
         lettuce.setOnAction(e -> {
-            buyingFood(food[4],root,user);
+            buyingFood(food[5],root,user);
         });
 
         Button bone = new Button();
@@ -215,7 +215,7 @@ public class GameShop {
         StackPane.setAlignment(bone, Pos.CENTER);
         StackPane.setMargin(bone, new Insets(250,110,0,0));
         bone.setOnAction(e -> {
-            buyingFood(food[5],root,user);
+            buyingFood(food[3],root,user);
         });
 
         Button cookie = new Button();
@@ -349,12 +349,14 @@ public class GameShop {
     private void buyingFood(Food food, StackPane root, User user){
 
        user.buyFood(food,root);
+       user.updateMoneyLabel();
 
     }
 
     private void buyingToys(Toy toy, StackPane root, User user){
 
         user.buyToy(toy,root);
+        user.updateMoneyLabel();
 
 
     }

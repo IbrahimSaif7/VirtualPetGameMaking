@@ -16,23 +16,22 @@ public class PetShop {
                 new Dragon("Dragon")
         };
         availableFoods = new Food[]{
-                new Food("Meat", 20,5, 15),
                 new Food("Fish", 15,5, 10),
                 new Food("Carrot", 10, 8, 8),
                 new Food("Chicken",15,5,10),
-                new Food("Bone",10,3,8),
+                new Food("Bone",10,3,5),
                 new Food("Beef",20,5,15),
-                new Food("Lettuce",15,8,10),
-                new Food("Cookie",15,3,10)
+                new Food("Lettuce",15,8,8),
+                new Food("Cookie",15,3,5)
         };
         availableToys = new Toy[]{
                 new Toy("Ball",20,5,15),
-                new Toy("Frisbee",10,8,8),
-                new Toy("Cardboard Box",15,3,10),
+                new Toy("Frisbee",10,8,15),
+                new Toy("Cardboard Box",15,3,8),
                 new Toy("Boomerang",15,8,10),
                 new Toy("Bone",20,5,15),
-                new Toy("Plushie",10,3,8),
-                new Toy("Wheel",15,8,10)
+                new Toy("Plushie",10,3,10),
+                new Toy("Wheel",15,8,15)
 
         };
 

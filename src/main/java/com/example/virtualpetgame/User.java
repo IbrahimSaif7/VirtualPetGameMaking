@@ -1,5 +1,7 @@
 package com.example.virtualpetgame;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -341,6 +343,32 @@ public class User {
             System.out.println("Pet not found.");
         }
     }
+
+    public void checkPetDeath(Pet pet, StackPane root, Runnable onDeathCallback) {
+        if (pet.isDead()) {
+            pets.remove(pet);
+            updateMoneyLabel();
+
+            // Show an alert window 💀
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Oh no!");
+            alert.setHeaderText(null);
+            alert.setContentText(pet.name + " has died 💀");
+            alert.showAndWait();
+
+            // Optional toast for flair
+            DialogPane dialog = alert.getDialogPane();
+            dialog.setStyle("-fx-background-color: #1e1e2e;");
+            dialog.lookup(".content.label").setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+
+            // Run the callback to refresh UI, etc.
+            if (onDeathCallback != null) {
+                onDeathCallback.run();
+            }
+        }
+    }
+
+
 
 
 }

@@ -73,6 +73,8 @@ abstract class Pet {
     }
 
     public void feed(Food food, User user) {
+
+
         if (Arrays.asList(favoriteFoods).contains(food.name)) {
             hunger -= food.hungerReduction*1.5;
             hunger = clamp(hunger);
@@ -137,8 +139,6 @@ abstract class Pet {
                 System.out.println("You've word this toy out!");
                 user.toyInventory.remove(toy);
             }
-        } else {
-            System.out.println("Toy is Worn-out :( Choose another toy");
         }
     }
 
@@ -168,9 +168,6 @@ abstract class Pet {
                 Toast.show(root, "You've word this toy out!");
                 user.toyInventory.remove(toy);
             }
-        } else {
-            System.out.println("Toy is Worn-out :( Choose another toy");
-            Toast.show(root,"Toy is Worn-out" );
         }
     }
 
@@ -207,6 +204,11 @@ abstract class Pet {
             System.out.println(name + " has died due to poor care. RIP.");
         }
     }
+
+    public boolean isDead() {
+        return hunger >= 95 || energy <= 5 || mood <= 5;
+    }
+
 
     public void tryEvolve(User user) {
         if (!evolved && mood >= 75 && energy >= 70 && user.getMoney() >= 150) {

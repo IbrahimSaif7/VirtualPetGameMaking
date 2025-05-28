@@ -4,7 +4,7 @@ public class Dog extends Pet{
 
 
     public Dog(String name) {
-        super(name, 60, 50, 80, new String[]{"Bone","Beef"},new String[]{"Bone", "Frisbee"} , 80, "Woof Woof");
+        super(name, 60, 50, 80, new String[]{"Bone","Beef"},new String[]{"Bone", "Frisbee"} , 50, "Woof Woof");
     }
 
     @Override

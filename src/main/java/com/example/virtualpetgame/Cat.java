@@ -4,7 +4,7 @@ public class Cat extends Pet{
 
     public Cat(String name){
 
-        super(name,60, 30, 50, new String[]{"Milk", "Chicken"}, new String[]{"Ball", "Plushie"} ,80, "Meow Meow");
+        super(name,60, 30, 50, new String[]{"Milk", "Chicken"}, new String[]{"Ball", "Plushie"} ,50, "Meow Meow");
 
 
     }
