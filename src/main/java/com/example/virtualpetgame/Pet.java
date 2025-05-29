@@ -124,6 +124,8 @@ abstract class Pet {
                 mood = clamp(mood);
                 energy -= toy.energyDecrease;
                 energy = clamp(energy);
+                hunger += 7;
+                hunger= clamp(hunger);
                 user.earnMoney(15);
                 System.out.println(name + " loved to play with" + toy.name + "! Mood +" + toy.moodIncrease * 1.5 + ", Energy -" + toy.energyDecrease + " Earned $15");
             } else {
@@ -132,6 +134,8 @@ abstract class Pet {
                 mood = clamp(mood);
                 energy -= toy.energyDecrease;
                 energy = clamp(energy);
+                hunger += 7;
+                hunger= clamp(hunger);
                 user.earnMoney(5);
                 System.out.println(name + " had little fun playing with " + toy.name + " Mood +" + toy.moodIncrease + ", Energy -" + toy.energyDecrease + " Earned $15");
             }
@@ -150,6 +154,8 @@ abstract class Pet {
                 mood = clamp(mood);
                 energy -= toy.energyDecrease;
                 energy = clamp(energy);
+                hunger += 7;
+                hunger= clamp(hunger);
                 user.earnMoney(8);
                 System.out.println(name + " loved to play with" + toy.name + "! Mood +" + toy.moodIncrease * 1.5 + ", Energy -" + toy.energyDecrease + " Earned $15");
                 Toast.show(root, name + " loved to play with" + toy.name + "! Mood +" + toy.moodIncrease * 1.5 + ", Energy -" + toy.energyDecrease + " Earned $8");
@@ -159,6 +165,8 @@ abstract class Pet {
                 mood = clamp(mood);
                 energy -= toy.energyDecrease;
                 energy = clamp(energy);
+                hunger += 7;
+                hunger= clamp(hunger);
                 user.earnMoney(4);
                 System.out.println(name + " had little fun playing with " + toy.name + " Mood +" + toy.moodIncrease + ", Energy -" + toy.energyDecrease + " Earned $15");
                 Toast.show(root,name + " had little fun playing with " + toy.name + " Mood +" + toy.moodIncrease + ", Energy -" + toy.energyDecrease + " Earned $4" );
@@ -206,7 +214,11 @@ abstract class Pet {
     }
 
     public boolean isDead() {
-        return hunger >= 95 || energy <= 5 || mood <= 5;
+        if( hunger >= 95 || energy <= 5 || mood <= 5){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

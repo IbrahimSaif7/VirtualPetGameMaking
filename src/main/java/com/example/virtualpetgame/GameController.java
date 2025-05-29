@@ -16,7 +16,7 @@ public class GameController {
     private Scanner scanner;
 
     public GameController(String userName) {
-        this.user = new User(userName, 500);
+        this.user = new User(userName, 750);
         this.shop = new PetShop();
         this.lastCheckedDate = LocalDate.now();
         this.scanner = new Scanner(System.in);

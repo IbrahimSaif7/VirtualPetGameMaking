@@ -18,9 +18,7 @@ public class MainGameScreen {
      final Stage stage;
     StackPane root = new StackPane();
     private final GameController controller;
-    private VBox leftSlot = new VBox(10);
-    private VBox centerSlot = new VBox(10);
-    private VBox rightSlot = new VBox(10);
+
 
     private StackPane leftCarpet = new StackPane();
     private StackPane centerCarpet = new StackPane();
@@ -283,7 +281,25 @@ public class MainGameScreen {
 
             }else{
                 pet.mood-=11;
+
                 Toast.show(root,pet.name+ " is not tired");
+                if (pet.isDead()) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    DialogPane dialog = alert.getDialogPane();
+                    dialog.setStyle("-fx-background-color: #2a2a2a;");
+                    dialog.lookup(".content.label").setStyle("-fx-text-fill: white;"+ "-fx-font-size: 14px;");
+
+                    alert.setTitle("Oh no!");
+                    alert.setHeaderText(null);
+                    alert.setContentText(pet.getName() + " has died 💀");
+
+
+                    alert.showAndWait();
+
+                    controller.getUser().pets.remove(pet);               // Remove pet
+                    controller.getUser().updateMoneyLabel();             // Refresh money
+                }
+                root.getChildren().remove(panel);
                 refreshPetDisplay(root);
             }
         });
@@ -508,13 +524,14 @@ public class MainGameScreen {
 
                     if (pet.isDead()) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DialogPane dialog = alert.getDialogPane();
+                        dialog.setStyle("-fx-background-color: #2a2a2a;");
+                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;"+ "-fx-font-size: 16px;");
+
                         alert.setTitle("Oh no!");
                         alert.setHeaderText(null);
                         alert.setContentText(pet.getName() + " has died 💀");
 
-                        DialogPane dialog = alert.getDialogPane();
-                        dialog.setStyle("-fx-background-color: #2a2a2a;");
-                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;");
 
                         alert.showAndWait();
 
@@ -525,6 +542,26 @@ public class MainGameScreen {
                 }else{
                     Toast.show(root,"Not hungry");
                     pet.mood-=11;
+                    if (pet.isDead()) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DialogPane dialog = alert.getDialogPane();
+                        dialog.setStyle("-fx-background-color: #2a2a2a;");
+                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;"+ "-fx-font-size: 16px;");
+
+                        alert.setTitle("Oh no!");
+                        alert.setHeaderText(null);
+                        alert.setContentText(pet.getName() + " has died 💀");
+
+
+                        alert.showAndWait();
+
+                        controller.getUser().pets.remove(pet);               // Remove pet
+                        controller.getUser().updateMoneyLabel();             // Refresh money
+                    }
+                    refreshPetDisplay(root);
+                    root.getChildren().remove(petPopupPanel);
+
+
                 }
 
             });
@@ -582,13 +619,14 @@ public class MainGameScreen {
 
                     if (pet.isDead()) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        DialogPane dialog = alert.getDialogPane();
+                        dialog.setStyle("-fx-background-color: #2a2a2a;");
+                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;"+ "-fx-font-size: 16px;");
+
                         alert.setTitle("Oh no!");
                         alert.setHeaderText(null);
                         alert.setContentText(pet.getName() + " has died 💀");
 
-                        DialogPane dialog = alert.getDialogPane();
-                        dialog.setStyle("-fx-background-color: #2a2a2a;");
-                        dialog.lookup(".content.label").setStyle("-fx-text-fill: white;");
 
                         alert.showAndWait();
 

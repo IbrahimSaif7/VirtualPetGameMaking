@@ -8,9 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+
 import java.util.*;
 import java.time.*;
 

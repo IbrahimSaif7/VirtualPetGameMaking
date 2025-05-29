@@ -68,8 +68,6 @@ public class NameInputScreen {
         StackPane.setAlignment(confirmButtonView, Pos.BOTTOM_CENTER);
         StackPane.setMargin(confirmButtonView, new Insets(0,0,50,0));
 
-        // Set button action to switch screens
-        //  confirmButtonView.setOnMouseClicked(e -> showMainGameScreen());
         confirmButtonView.setOnMouseEntered(e -> confirmButtonView.setOpacity(0.8));
         confirmButtonView.setOnMouseExited(e -> confirmButtonView.setOpacity(1.0));
         confirmButtonView.setOnMouseClicked(e -> {
@@ -80,7 +78,6 @@ public class NameInputScreen {
             GameController controller = new GameController(playerName);
             InitialPetSelectionScreen initialPetScreen = new InitialPetSelectionScreen(stage, controller);
             stage.setScene(initialPetScreen.getScene());
-         //   initialPetScreen();
         });
 
 

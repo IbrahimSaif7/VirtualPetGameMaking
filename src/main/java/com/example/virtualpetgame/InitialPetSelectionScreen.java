@@ -37,27 +37,7 @@ public class InitialPetSelectionScreen {
         bgView.setFitHeight(600);
         bgView.setPreserveRatio(false);
 
-//        Label moneyLabel = new Label("Money: $" + user.getMoney());
-//        moneyLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-//        StackPane.setAlignment(moneyLabel, Pos.TOP_LEFT);
-//        StackPane.setMargin(moneyLabel, new Insets(10));
 
-//        Image moneyIcon = new Image(getClass().getResourceAsStream("/images/Money.png")); // Add your money icon image
-//        ImageView moneyIconView = new ImageView(moneyIcon);
-//        moneyIconView.setFitWidth(40);  // Adjust size as needed
-//        moneyIconView.setFitHeight(40);
-//
-//        // Create label for the amount (without "Money: $")
-//         moneyAmount = new Label(": "+ user.getMoney());
-//        moneyAmount.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: gold;");
-//
-//        // Create a horizontal box to hold both icon and amount
-//        HBox moneyContainer = new HBox(5); // 5 is spacing between elements
-//        moneyContainer.setAlignment(Pos.CENTER_LEFT);
-//        moneyContainer.getChildren().addAll(moneyIconView, moneyAmount);
-//
-//        StackPane.setAlignment(moneyContainer, Pos.TOP_LEFT);
-//        StackPane.setMargin(moneyContainer, new Insets(0,0,580,0));
 
         HBox moneyDisplay = user.getMoneyDisplay();
         StackPane.setAlignment(moneyDisplay, Pos.TOP_LEFT);
@@ -96,14 +76,12 @@ public class InitialPetSelectionScreen {
 
         Button button = new Button();
         button.setStyle("-fx-background-color: transparent;");
-        button.setPrefSize(180, 180); // Match your image's circle size
-//
+        button.setPrefSize(180, 180);
 
         button.setOnAction(e -> {
             showPetNamingOverlay(root, pet, user);
         });
 
-        // Optional: Visual cue on hover
         button.setOnMouseEntered(e -> button.setStyle("-fx-border-color: gold; -fx-border-width: 2px; -fx-background-color: transparent;"));
         button.setOnMouseExited(e -> button.setStyle("-fx-background-color: transparent;"));
 
