@@ -1,6 +1,9 @@
 package com.example.virtualpetgame;
 
-public class Toy {
+import java.io.Serializable;
+
+public class Toy implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
     int moodIncrease;
     int energyDecrease;

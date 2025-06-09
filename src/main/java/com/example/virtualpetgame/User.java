@@ -1,4 +1,5 @@
 package com.example.virtualpetgame;
+import java.io.Serializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
@@ -9,14 +10,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
 
+import java.io.Serializable;
 import java.util.*;
 import java.time.*;
 
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private String username;
     protected List<Pet> pets;
-    private int money;
+    public int money;
     List<Food> foodInventory;
     List<Toy> toyInventory;
     private TaskType currentTask;
@@ -27,8 +30,8 @@ public class User {
     private boolean playedWithPetToday;
     private boolean putPetToSleepToday;
     private boolean evolvedPetToday;
-    private Label moneyAmountLabel;
-    private HBox moneyContainer;
+    private transient Label moneyAmountLabel;
+    private transient HBox moneyContainer;
 
 
 

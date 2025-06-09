@@ -54,12 +54,36 @@ public class WelcomeScreen {
         playButton.setOnMouseEntered(e -> playButton.setOpacity(0.8));
         playButton.setOnMouseExited(e -> playButton.setOpacity(1.0));
 
-        root.getChildren().addAll(backgroundView, signView,playButton);
+        Image loadButtonImage = new Image(getClass().getResourceAsStream("/images/LoadGame.png"));
+        ImageView loadButton = new ImageView(loadButtonImage);
+        loadButton.setPreserveRatio(true);
+        loadButton.setFitWidth(100);
+        loadButton.setFitHeight(80);
+        StackPane.setAlignment(loadButton, Pos.TOP_RIGHT);
+        StackPane.setMargin(loadButton, new Insets(0, 0, 0, 0)); // Position below play button
+
+        loadButton.setOnMouseEntered(e -> loadButton.setOpacity(0.8));
+        loadButton.setOnMouseExited(e -> loadButton.setOpacity(1.0));
+        loadButton.setOnMouseClicked(e -> {
+            User loadedUser = GameSave.loadGame();
+            if (loadedUser != null) {
+                GameController controller = new GameController(loadedUser.getUsername());
+                controller.getUser().pets = loadedUser.pets;
+                controller.getUser().money= loadedUser.getMoney();
+                controller.getUser().foodInventory = loadedUser.foodInventory;
+                controller.getUser().toyInventory = loadedUser.toyInventory;
+
+                MainGameScreen main = new MainGameScreen(primaryStage, controller);
+                primaryStage.setScene(main.getScene());
+            } else {
+                Toast.show(root, "No saved game found!");
+            }
+        });
+
+        root.getChildren().addAll(backgroundView, signView,playButton, loadButton);
 
         return new Scene(root, 800, 600);
 
     }
-
-
 
 }

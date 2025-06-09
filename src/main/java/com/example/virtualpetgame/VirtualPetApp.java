@@ -15,6 +15,7 @@ public class VirtualPetApp extends Application {
         WelcomeScreen welcome = new WelcomeScreen(primaryStage);
         Scene welcomeScene = welcome.getScene();
         primaryStage.setScene(welcomeScene);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Virtual Pet Simulator");
         primaryStage.show();
 

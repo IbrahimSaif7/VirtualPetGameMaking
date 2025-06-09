@@ -43,6 +43,7 @@ public class MainGameScreen {
         bg.setFitHeight(600);
 
 
+
         //PAISA
         HBox moneyDisplay = user.getMoneyDisplay();
         StackPane.setAlignment(moneyDisplay, Pos.TOP_LEFT);
@@ -130,8 +131,28 @@ public class MainGameScreen {
         Pane carpetContainer = new Pane();
         carpetContainer.getChildren().addAll(leftCarpet, centerCarpet, rightCarpet);
 
+        ImageView saveIcon = new ImageView(new Image(getClass().getResourceAsStream("/images/saveGame.png")));
+        saveIcon.setFitWidth(40);
+        saveIcon.setFitHeight(40);
+        saveIcon.setOnMouseEntered(e -> {
+            saveIcon.setFitHeight(50);
+            saveIcon.setFitWidth(50);
+            Toast.show(root, "SAVE GAME");
+        });
+        saveIcon.setOnMouseExited(e -> {
+            saveIcon.setFitWidth(40);
+            saveIcon.setFitHeight(40);
+        });
+        saveIcon.setOnMouseClicked(e -> {
+            GameSave.saveGame(controller.getUser());
+            Toast.show(root, "Game Saved!");
+        });
+        saveIcon.setStyle("-fx-cursor: hand;");
+        StackPane.setAlignment(saveIcon, Pos.BOTTOM_LEFT);
+        StackPane.setMargin(saveIcon, new Insets(0, 0, 15, 20));
 
-        root.getChildren().addAll(bg,  carpetContainer, moneyDisplay, storeIcon, miniGameIcon);
+
+        root.getChildren().addAll(bg,  carpetContainer, moneyDisplay, storeIcon, miniGameIcon, saveIcon);
         return new Scene(root, 800, 600);
     }
 

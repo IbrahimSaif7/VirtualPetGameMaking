@@ -1,6 +1,9 @@
 package com.example.virtualpetgame;
 
-public class DailyTask {
+import java.io.Serializable;
+
+public class DailyTask implements Serializable {
+    private static final long serialVersionUID = 1L;
     private TaskType taskType;
     private int reward;
     private boolean completed;

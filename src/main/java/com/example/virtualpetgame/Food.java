@@ -1,8 +1,10 @@
 package com.example.virtualpetgame;
 
 
+import java.io.Serializable;
 
-public class Food {
+public class Food implements Serializable {
+    private static final long serialVersionUID = 1L;
     String name;
     int hungerReduction;
     int price;

@@ -6,7 +6,6 @@ public class Cat extends Pet{
 
         super(name,60, 30, 50, new String[]{"Milk", "Chicken"}, new String[]{"Ball", "Plushie"} ,50, "Meow Meow");
 
-
     }
 
     @Override

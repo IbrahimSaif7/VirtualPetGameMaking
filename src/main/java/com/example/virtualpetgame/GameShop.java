@@ -274,7 +274,7 @@ public class GameShop {
         StackPane.setAlignment(ball, Pos.CENTER);
         StackPane.setMargin(ball, new Insets(0,210,140,0));
         ball.setOnAction(e -> {
-            buyingToys(toy[0],root,user);
+            buyingToys(new Toy("Ball", 20,10,15),root,user);
         });
 
         Button frisbee = new Button();
@@ -282,7 +282,7 @@ public class GameShop {
         StackPane.setAlignment(frisbee,Pos.CENTER);
         StackPane.setMargin(frisbee, new Insets(0,0,120,5));
         frisbee.setOnAction(e -> {
-            buyingToys(toy[1],root,user);
+            buyingToys( new Toy("Frisbee",10,8,15),root,user);
         });
 
         Button boomerang = new Button();
@@ -290,7 +290,7 @@ public class GameShop {
         StackPane.setAlignment(boomerang,Pos.CENTER);
         StackPane.setMargin(boomerang, new Insets(0,0,150,210));
         boomerang.setOnAction(e -> {
-            buyingToys(toy[3],root,user);
+            buyingToys(new Toy("Boomerang",15,8,10),root,user);
         });
 
         Button plushie = new Button();
@@ -298,7 +298,7 @@ public class GameShop {
         StackPane.setAlignment(plushie,Pos.CENTER);
         StackPane.setMargin(plushie,new Insets(60,120,0,0));
         plushie.setOnAction(e -> {
-            buyingToys(toy[5],root,user);
+            buyingToys(new Toy("Plushie",10,9,10),root,user);
         });
 
         Button hamsterWheel = new Button();
@@ -306,7 +306,7 @@ public class GameShop {
         StackPane.setAlignment(hamsterWheel,Pos.CENTER);
         StackPane.setMargin(hamsterWheel, new Insets(55,0,0,142));
         hamsterWheel.setOnAction(e -> {
-            buyingToys(toy[6],root,user);
+            buyingToys(new Toy("Wheel",15,8,15),root,user);
         });
 
         Button box = new Button();
@@ -314,7 +314,7 @@ public class GameShop {
         StackPane.setAlignment(box, Pos.CENTER);
         StackPane.setMargin(box, new Insets(250,110,0,0));
         box.setOnAction(e -> {
-            buyingToys(toy[2],root,user);
+            buyingToys( new Toy("Cardboard Box",15,8,8),root,user);
         });
 
         Button bone = new Button();
@@ -322,7 +322,7 @@ public class GameShop {
         StackPane.setAlignment(bone, Pos.CENTER);
         StackPane.setMargin(bone, new Insets(280,0,0,140));
         bone.setOnAction(e -> {
-            buyingToys(toy[4],root,user);
+            buyingToys( new Toy("Bone",20,10,15),root,user);
         });
 
         for (Button btn : new Button[]{ball,frisbee,bone,hamsterWheel,box,bone,plushie,boomerang}){
@@ -356,6 +356,7 @@ public class GameShop {
     private void buyingToys(Toy toy, StackPane root, User user){
 
         user.buyToy(toy,root);
+        toy.uses=4;
         user.updateMoneyLabel();
 
 

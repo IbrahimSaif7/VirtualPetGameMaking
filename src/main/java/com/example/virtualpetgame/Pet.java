@@ -1,12 +1,14 @@
 package com.example.virtualpetgame;
 import javafx.scene.layout.StackPane;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.time.*;
 
-abstract class Pet {
+abstract class Pet implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String name;
     protected int hunger;
     protected int mood;
