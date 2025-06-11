@@ -25,7 +25,7 @@ public class User implements Serializable {
     private TaskType currentTask;
     private boolean taskCompleted;
     private LocalDateTime lastTaskTime;
-    DailyTask dailyTask;
+    //DailyTask dailyTask;
     private boolean fedPetToday;
     private boolean playedWithPetToday;
     private boolean putPetToSleepToday;
@@ -45,7 +45,7 @@ public class User implements Serializable {
         this.lastTaskTime = LocalDateTime.now().minusHours(25); // ensure task is available immediately
         this.currentTask = getCurrentTask();
         this.taskCompleted=false;
-        this.dailyTask= generateRandomTask();
+       // this.dailyTask= generateRandomTask();
         this.resetDailyTaskFlags();
     }
     public String getUsername(){
@@ -214,74 +214,74 @@ public class User implements Serializable {
 
 
 
-    public DailyTask generateRandomTask(){
+//    public DailyTask generateRandomTask(){
+//
+//        TaskType[] values = TaskType.values();
+//        int index = (int) (Math.random() * values.length);
+//        TaskType type = values[index];
+//        int reward = switch (type) {
+//            case FEED_PET -> 20;
+//            case PLAY_WITH_PET -> 30;
+//            case MAKE_PET_SLEEP -> 15;
+//            case EVOLVE_PET -> 50;
+//        };
+//        return new DailyTask(type,reward);
+//
+//    }
+//
+//    public DailyTask getDailyTask() {
+//        return dailyTask;
+//    }
 
-        TaskType[] values = TaskType.values();
-        int index = (int) (Math.random() * values.length);
-        TaskType type = values[index];
-        int reward = switch (type) {
-            case FEED_PET -> 20;
-            case PLAY_WITH_PET -> 30;
-            case MAKE_PET_SLEEP -> 15;
-            case EVOLVE_PET -> 50;
-        };
-        return new DailyTask(type,reward);
+//    public void markFedPet() {
+//        this.fedPetToday = true;
+//        checkAndCompleteTask(TaskType.FEED_PET);
+//    }
+//
+//    public void markPlayedWithPet() {
+//        this.playedWithPetToday = true;
+//        checkAndCompleteTask(TaskType.PLAY_WITH_PET);
+//    }
+//
+//    public void markPutPetToSleep() {
+//        this.putPetToSleepToday = true;
+//        checkAndCompleteTask(TaskType.MAKE_PET_SLEEP);
+//    }
+//
+//    public void markEvolvedPet() {
+//        this.evolvedPetToday = true;
+//        checkAndCompleteTask(TaskType.EVOLVE_PET);
+//    }
 
-    }
-
-    public DailyTask getDailyTask() {
-        return dailyTask;
-    }
-
-    public void markFedPet() {
-        this.fedPetToday = true;
-        checkAndCompleteTask(TaskType.FEED_PET);
-    }
-
-    public void markPlayedWithPet() {
-        this.playedWithPetToday = true;
-        checkAndCompleteTask(TaskType.PLAY_WITH_PET);
-    }
-
-    public void markPutPetToSleep() {
-        this.putPetToSleepToday = true;
-        checkAndCompleteTask(TaskType.MAKE_PET_SLEEP);
-    }
-
-    public void markEvolvedPet() {
-        this.evolvedPetToday = true;
-        checkAndCompleteTask(TaskType.EVOLVE_PET);
-    }
-
-    public void checkAndCompleteTask(TaskType type) {
-        if (dailyTask.isCompleted()) {
-            return;
-        }
-
-        if (dailyTask.getTaskType() != type) {
-            return;
-        }
-
-        boolean conditionsMet = false;
-        switch (type) {
-            case FEED_PET:
-                conditionsMet = fedPetToday;
-                break;
-            case PLAY_WITH_PET:
-                conditionsMet = playedWithPetToday;
-                break;
-            case MAKE_PET_SLEEP:
-                conditionsMet = putPetToSleepToday;
-                break;
-            case EVOLVE_PET:
-                conditionsMet = evolvedPetToday;
-                break;
-        }
-
-        if (conditionsMet) {
-            dailyTask.complete(this);
-        }
-    }
+//    public void checkAndCompleteTask(TaskType type) {
+//        if (dailyTask.isCompleted()) {
+//            return;
+//        }
+//
+//        if (dailyTask.getTaskType() != type) {
+//            return;
+//        }
+//
+//        boolean conditionsMet = false;
+//        switch (type) {
+//            case FEED_PET:
+//                conditionsMet = fedPetToday;
+//                break;
+//            case PLAY_WITH_PET:
+//                conditionsMet = playedWithPetToday;
+//                break;
+//            case MAKE_PET_SLEEP:
+//                conditionsMet = putPetToSleepToday;
+//                break;
+//            case EVOLVE_PET:
+//                conditionsMet = evolvedPetToday;
+//                break;
+//        }
+//
+//        if (conditionsMet) {
+//            dailyTask.complete(this);
+//        }
+//    }
 
     public void resetDailyTaskFlags() {
         fedPetToday = false;

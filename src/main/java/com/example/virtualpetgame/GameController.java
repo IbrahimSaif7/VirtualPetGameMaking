@@ -38,7 +38,7 @@ public class GameController {
 
     public void startGame() {
         while (true) {
-            checkNewDay();
+//            checkNewDay();
             displayMenu();
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -46,15 +46,15 @@ public class GameController {
         }
     }
 
-    private void checkNewDay() {
-        LocalDate today = LocalDate.now();
-        if (!today.equals(lastCheckedDate)) {
-            lastCheckedDate = today;
-            user.resetDailyTaskFlags();
-            user.dailyTask = user.generateRandomTask();
-            System.out.println("\n=== A new day has begun! ===");
-        }
-    }
+//    private void checkNewDay() {
+//        LocalDate today = LocalDate.now();
+//        if (!today.equals(lastCheckedDate)) {
+//            lastCheckedDate = today;
+//            user.resetDailyTaskFlags();
+//            user.dailyTask = user.generateRandomTask();
+//            System.out.println("\n=== A new day has begun! ===");
+//        }
+//    }
 
     private void displayMenu() {
         System.out.println("\nChoose an action:");
@@ -153,7 +153,7 @@ public class GameController {
                         if (user.pets.get(petchoice - 1).isAlive()) {
                             user.pets.get(petchoice - 1).feed(selected, user);
                             user.pets.get(petchoice - 1).checkDeath();
-                            user.markFedPet();
+//                            user.markFedPet();
                         }
                         user.removeFood(selected);
                     } else {
@@ -210,7 +210,7 @@ public class GameController {
                                     if (user.pets.get(petchoice - 1).isAlive()) {
                                         user.pets.get(petchoice - 1).play(selected, user);
                                         user.pets.get(petchoice - 1).checkDeath();
-                                        user.markPlayedWithPet();
+//                                        user.markPlayedWithPet();
                                     }
                                     break; // Exit loop after valid toy is used
                                 } else {
@@ -237,7 +237,7 @@ public class GameController {
                 if (user.pets.get(petchoice - 1).isAlive() && user.pets.get(petchoice - 1).energy < 70) {
                     user.pets.get(petchoice - 1).sleep(user);
                     user.pets.get(petchoice - 1).checkDeath();
-                    user.markPutPetToSleep();
+//                    user.markPutPetToSleep();
                 } else {
                     System.out.println(user.pets.get(petchoice - 1).name + " is not tired.");
                 }
@@ -257,7 +257,7 @@ public class GameController {
                     boolean wasEvolved = user.pets.get(petchoice - 1).evolved;
                     user.pets.get(petchoice - 1).tryEvolve(user);
                     if (!wasEvolved && user.pets.get(petchoice - 1).evolved) {
-                        user.markEvolvedPet();
+//                        user.markEvolvedPet();
                     }
                 }
                 break;
@@ -266,32 +266,32 @@ public class GameController {
                 user.showStatus();
                 break;
 
-            case 7:
-                DailyTask task = user.getDailyTask();
-                System.out.println("\n=== DAILY TASK ===");
-                System.out.println("Task: " + task.getTaskType().getDescription());
-                System.out.println("Reward: $" + task.getReward());
-                if (task.isCompleted()) {
-                    System.out.println("Status: COMPLETED");
-                } else {
-                    System.out.println("Status: Not completed yet");
-                    // Show what's needed to complete
-                    switch (task.getTaskType()) {
-                        case FEED_PET:
-                            System.out.println("Action needed: Feed any pet");
-                            break;
-                        case PLAY_WITH_PET:
-                            System.out.println("Action needed: Play with any pet");
-                            break;
-                        case MAKE_PET_SLEEP:
-                            System.out.println("Action needed: Put any pet to sleep");
-                            break;
-                        case EVOLVE_PET:
-                            System.out.println("Action needed: Evolve any pet");
-                            break;
-                    }
-                }
-                break;
+//            case 7:
+//                DailyTask task = user.getDailyTask();
+//                System.out.println("\n=== DAILY TASK ===");
+//                System.out.println("Task: " + task.getTaskType().getDescription());
+//                System.out.println("Reward: $" + task.getReward());
+//                if (task.isCompleted()) {
+//                    System.out.println("Status: COMPLETED");
+//                } else {
+//                    System.out.println("Status: Not completed yet");
+//                    // Show what's needed to complete
+//                    switch (task.getTaskType()) {
+//                        case FEED_PET:
+//                            System.out.println("Action needed: Feed any pet");
+//                            break;
+//                        case PLAY_WITH_PET:
+//                            System.out.println("Action needed: Play with any pet");
+//                            break;
+//                        case MAKE_PET_SLEEP:
+//                            System.out.println("Action needed: Put any pet to sleep");
+//                            break;
+//                        case EVOLVE_PET:
+//                            System.out.println("Action needed: Evolve any pet");
+//                            break;
+//                    }
+//                }
+//                break;
 
             case 8: // Mini-Games
                 System.out.println("\n=== Mini-Games ===");
